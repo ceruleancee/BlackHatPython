@@ -1,3 +1,6 @@
+# Chapter 1
+# SimpleSample
+
 def sum(number_one, number_two):
 
     number_one_int = convert_integer(number_one)

@@ -1,3 +1,6 @@
+# Chapter 2
+# TCPClientConnection
+
 import socket
 
 target_host = "www.google.com"
