@@ -9,6 +9,8 @@ bind_port = 9999
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((bind_ip,bind_port))
+
+# max backlog connections set to 5
 server.listen(5)
 
 print "[*] Listen on %s:%d" % (bind_ip,bind_port)
