@@ -17,17 +17,17 @@ upload_destination = ""
 port = 0
 
 def usage():
-    print "BHP Net Tool"
-    print "Usage: bhpnet.py -t target_host -p port"
-    print "-l --listen   -listen on [host]: [port] for incoming connections"
-    print "-e --executive=file_to_run - execute the given file upon receiving a connection"
-    print "-u --upload=destination - upon receiving connection upload a file and write to [destination]"
-    print
-    print "Examples: "
-    print "bhpnet.py -t 192.168.0.1 -p 5555 -l -c"
-    print "bhpnet.py -t 192.168.0.1 -p 5555 -l -u=c:\\target.exe"
-    print "bhpnet.py -t 192.168.0.1 -p 5555 -l -e=\"cat /etc/passwd\""
-    print "echo 'ABCDEFGHI' | ./bhpnet.py -t 192.168.11.12 -p 135"
+    print("BHP Net Tool")
+    print("Usage: NetCat.py -t target_host -p port")
+    print("-l --listen   -listen on [host]: [port] for incoming connections")
+    print( "-e --executive=file_to_run - execute the given file upon receiving a connection")
+    print( "-u --upload=destination - upon receiving connection upload a file and write to [destination]")
+    print("\n")
+    print( "Examples: ")
+    print( "NetCat.py -t 192.168.0.1 -p 5555 -l -c")
+    print( "NetCat.py -t 192.168.0.1 -p 5555 -l -u=c:\\target.exe")
+    print( "NetCat.py -t 192.168.0.1 -p 5555 -l -e=\"cat /etc/passwd\"")
+    print( "echo 'ABCDEFGHI' | ./bhpnet.py -t 192.168.11.12 -p 135")
     sys.exit(0)
 
 
@@ -46,7 +46,7 @@ def main():
         opts, args = getopt.getopt(sys.argv[1:], "hle:t:p:cu:",
                                    ["help", "listen", "execute", "target", "port", "command", "upload"])
     except getopt.GetoptError as err:
-        print str(err)
+        print( str(err))
         usage()
 
     for o, a in opts:
@@ -102,7 +102,7 @@ def client_sender(buffer):
                     if recv_len < 4096:
                         break
 
-                print response,
+                print( response,)
 
                 buffer = raw_input("")
                 buffer += "\n"
@@ -111,7 +111,7 @@ def client_sender(buffer):
 
     except:
 
-        print "[*] Exception! Exciting."
+        print( "[*] Exception! Exciting.")
 
         client.close()
 

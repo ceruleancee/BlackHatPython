@@ -12,12 +12,12 @@ server.bind((bind_ip,bind_port))
 
 server.listen(5)
 
-print "[*] Listen on %s:%d" % (bind_ip,bind_port)
+print( "[*] Listen on %s:%d" % (bind_ip,bind_port))
 
 def handle_client(client_socket):
 
     request = client_socket.recv(1024)
-    print "[*] Received: %s" % request
+    print("[*] Received: %s" % request)
 
     client_socket.send("ACK! Chocolate, chocolate, chocolate!")
     client_socket.close()
@@ -25,7 +25,7 @@ def handle_client(client_socket):
 while True:
 
     client,addr = server.accept()
-    print "[*] Accepted connection from: %s:%d" % (addr[0], addr[1])
+    print("[*] Accepted connection from: %s:%d" % (addr[0], addr[1]))
 
     client_handler = threading.Thread(target=handle_client,args=(client,))
     client_handler.start()
