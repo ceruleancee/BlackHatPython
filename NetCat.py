@@ -66,7 +66,7 @@ def main():
         elif o in ("-p", "--port"):
             port = int(a)
         else:
-            assert False, "Unhandled Option”
+            assert False, "Unhandled Option"""
 
         # are we going to listen or just send data from stdin?
         if not listen and len(target) and port > 0:
@@ -206,10 +206,8 @@ def client_handler(client_socket):
                     # show a simple prompt
                     client_socket.send("<BHP:#> ")
 
-                        # now we receive until we see a linefeed
-                        (enter key)
                     cmd_buffer = ""
-                    while "\n" not in cmd buffer:
+                    while "\n" not in cmd_buffer:
                             cmd_buffer += client_socket.recv(1024)
 
                     # send back the command output
