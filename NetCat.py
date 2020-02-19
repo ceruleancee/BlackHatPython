@@ -27,7 +27,7 @@ def usage():
     print( "NetCat.py -t 192.168.0.1 -p 5555 -l -c")
     print( "NetCat.py -t 192.168.0.1 -p 5555 -l -u=c:\\target.exe")
     print( "NetCat.py -t 192.168.0.1 -p 5555 -l -e=\"cat /etc/passwd\"")
-    print( "echo 'ABCDEFGHI' | ./bhpnet.py -t 192.168.11.12 -p 135")
+    print( "echo 'ABCDEFGHI' | ./NetCat.py -t 192.168.11.12 -p 135")
     sys.exit(0)
 
 
