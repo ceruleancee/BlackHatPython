@@ -47,9 +47,9 @@ else:
     socket_protocol = socket.IPPROTO_ICMP
 
 sniffer = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket_protocol)
+
 sniffer.bind((host, 0))
 sniffer.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
-
 if os.name == "nt":
     sniffer.ioctl(socket.SIO_RCVALL, socket.RCVALL_ON)
 
@@ -59,6 +59,7 @@ try:
         raw_buffer = sniffer.recvfrom(65565)[0]
 
         # create an IP header from first 20 bytes of buffer
+        # breaks here with a "TypeError: an integer is required (got type bytes)"
         ip_header = IP(raw_buffer[0:20])
 
         # print out the protocol that was detected and the hosts
@@ -69,3 +70,30 @@ except KeyboardInterrupt:
 
     if os.name == "nt":
         sniffer.ioctl(socket.SIO_RCVALL, socket.RCVALL_OFF)
+
+
+class ICMP(Structure):
+    _fields_ = [
+        ("type", c_ubyte),
+        ("code", c_ubyte),
+        ("checksum", c_ushort),
+        ("unused", c_ushort),
+    ]
+
+    def _new_(self, socket_buffer):
+        return self.from_buffer_copy(socket_buffer)
+
+    def _init_(self, socket_buffer):
+        pass
+
+    print("Protocol: %s %s -> %s" % (ip_header.protocol, ip_header.src_address, ip_header.dst_address))
+    # if its icmp we want it!
+    if ip_header.protocol == "ICMP":
+        # calculate where icmp packet starts
+        offset = ip_header.ihl * 4
+        buf = raw_buffer[offset:offset + sizeof(ICMP)]
+
+        # create our ICMP structure
+        icmp_header = ICMP(buf)
+
+        print("ICMP -> Type: %d Code: %d " % (icmp_header.type, icmp_header.code))
