@@ -57,6 +57,7 @@ def poison_target(gateway_ip, gateway_mac, target_ip, target_mac):
         print("[*] ARP poison attack finished.")
         return
 
+
 # 1
 print("[*] Setting up %s" % interface)
 gateway_mac = get_mac(gateway_ip)
