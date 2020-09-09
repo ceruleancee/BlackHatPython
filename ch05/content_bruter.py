@@ -30,3 +30,39 @@ def build_wordlist():
         else:
             words.put(word)
     return words
+
+
+def dir_bruter(word_queue, extension=None):
+    while not word_queue.empty():
+        attempt = word_queue.get()
+
+        attempt_list = []
+
+        if "." not in attempt:
+            attempt_list.append("/%s/%s" % (attempt, extension))
+
+        for brute in attempt_list:
+
+            url = "%s%s" % (target_url, urllib.quote(brute))
+
+            try:
+                headers = {"User-Agent": user_agent}
+                r = urllib2.Request(url, headers=headers)
+
+                response = urllib2.urlopen(r)
+
+                if len(response.read()):
+                    print("[%d] => %s" % (response.code, url))
+
+            except urllib2.URLError as e:
+
+                if hasattr(e, 'code') and e.code != 404:
+                    print("!!! %d => %s" % (e.code, url))
+                pass
+
+    word_queue = build_wordlist(wordlist_file)
+    extension = [".php", ".bak", ".org", ".inc"]
+
+    for i in range(threads):
+        t = threading.Thread(target=dir_bruter(word_queue, extension))
+        t.start()
