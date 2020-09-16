@@ -6,6 +6,7 @@ from java.util import List, ArrayList
 
 import random
 
+
 class BurpExtender(IBurpExtender, IIntruderPayloadGeneratorFactory):
     def registerExtenderCallbacks(self, callbacks):
         self._callbacks = callbacks
@@ -18,5 +19,5 @@ class BurpExtender(IBurpExtender, IIntruderPayloadGeneratorFactory):
     def getGenerator(self):
         return "BHP Payload Generator"
 
-    def createNewInstance(self, attack):
-        return BHPFuzzer(self, attack)
+    # def createNewInstance(self, attack):
+    #     return BHPFuzzer(self, attack)
